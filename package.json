@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "",
+  "version": "",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "express": "^4.16.1",
+    "mongoose": "^4.12.0",
+    "mongoose-relationship": "^0.1.5",
+    "react-router-dom": "^4.1.2"
+  }
+}

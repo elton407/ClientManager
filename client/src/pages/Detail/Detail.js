@@ -71,7 +71,7 @@ class Detail extends Component {
           </Col>
           <Col size="lg-6">
           <h1>Memo List</h1>
-          {this.state.Customer.notes}
+          { this.state.Customer.notes ? this.state.Customer.notes.map(note=> <p key={note._id}>{note.note}</p>): null}
           </Col>
         </Row>
         <Row>

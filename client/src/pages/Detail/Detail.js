@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
+import { Input, TextArea, FormBtn } from "../../components/Form";
 
 
 
@@ -10,7 +11,10 @@ import API from "../../utils/API";
 class Detail extends Component {
   state = {
     Customer: {},
-    notes: []
+    Notes: [],
+
+    note: "",
+    customerId: ""
   };
 
   
@@ -20,14 +24,41 @@ class Detail extends Component {
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
  
 
-
-
   componentDidMount() {
-    API.getCustomer(this.props.match.params.id)
-      .then(res => this.setState({ Customer: res.data, notes: res.data.notes }))
-      .catch(err => console.log(err));
+   this.loadCustomer();
+   this.loadNotes();
   }
 
+  loadCustomer = () => {
+    API.getCustomer(this.props.match.params.id)
+        .then(res => this.setState({ Customer: res.data }))
+        .catch(err => console.log(err));
+  };
+
+  loadNotes = () => {
+    API.findNotes(this.props.match.params.id)
+            .then(res => this.setState({ Notes: res.data, note:"", customerId: "" }))
+            .catch(err => console.log(err));    
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.note) {
+      API.createNote({
+        note: this.state.note,
+        customerId: this.state.Customer._id
+      })
+        .then(res => this.loadNotes())
+        .catch(err => console.log(err));
+    }
+  };
 
   render() {
     return (
@@ -71,7 +102,22 @@ class Detail extends Component {
           </Col>
           <Col size="lg-6">
           <h1>Memo List</h1>
-          { this.state.Customer.notes ? this.state.Customer.notes.map(note=> <p key={note._id}>{note.note}</p>): null}
+          {console.log(this.state.Notes)}
+          {this.state.Notes[0] ? this.state.Notes.map(note=> <p key ={note._id}>{note.note}</p>) : null }
+            <form>
+              <Input
+                value={this.state.note}
+                onChange={this.handleInputChange}
+                name="note"
+                placeholder="Add A Note"
+              />
+              <FormBtn
+                disabled={!(this.state.note)}
+                onClick={this.handleFormSubmit}
+              >
+                Post Memo
+              </FormBtn>
+            </form>  
           </Col>
         </Row>
         <Row>

@@ -1,4 +1,5 @@
 module.exports = {
   Customer: require("./customer"),
-  User:require("./user")
+  User:require("./user"),
+  UpdatedNote:require("./updatedNote")
 };

@@ -16,5 +16,11 @@ export default {
   // Saves a book to the database
   saveCustomer: function(customerData) {
     return axios.post("/api/customer", customerData);
+  },
+  createNote: function(noteData){
+    return axios.post("/api/note/", noteData);
+  },
+  findNotes: function(id){
+    return axios.get("/api/note/" + id);
   }
 };

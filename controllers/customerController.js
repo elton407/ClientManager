@@ -1,5 +1,5 @@
 const db = require("../models");
-const Note = require("../models/note");
+//const Note = require("../models/note");
 const customerDB = require("../models/customer");
 // Defining methods for the booksController
 module.exports = {
@@ -13,7 +13,6 @@ module.exports = {
   findById: function(req, res) {
     db.Customer
       .findById(req.params.id)
-      .populate('notes')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

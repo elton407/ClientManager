@@ -60,7 +60,7 @@ class Customers extends Component {
         companyNotes: this.state.companyNotes,
         dateExpected: this.state.dateExpected
       })
-        .then(res => this.loadBooks())
+        .then(res => this.loadCustomers())
         .catch(err => console.log(err));
     }
   };

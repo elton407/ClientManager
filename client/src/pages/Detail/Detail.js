@@ -4,6 +4,8 @@ import { Col, Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+import { List, ListItem } from "../../components/List";
+import DeleteBtn from "../../components/DeleteBtn";
 
 
 
@@ -60,6 +62,12 @@ class Detail extends Component {
     }
   };
 
+  deleteNote = id => {
+    API.deleteNote(id)
+      .then(res => this.loadNotes())
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <Container fluid>
@@ -103,7 +111,40 @@ class Detail extends Component {
           <Col size="lg-6">
           <h1>Memo List</h1>
           {console.log(this.state.Notes)}
-          {this.state.Notes[0] ? this.state.Notes.map(note=> <p key ={note._id}>{note.note}</p>) : null }
+          
+
+
+            {this.state.Notes[0] ? (
+              <List>
+                {this.state.Notes.map(note => (
+                  <ListItem key={note._id}>
+                    
+                      <strong>
+                        {note.note}
+                      </strong>
+                   
+                    <DeleteBtn onClick={() => this.deleteNote(note._id)} />
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Memos to Display</h3>
+            )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <form>
               <Input
                 value={this.state.note}

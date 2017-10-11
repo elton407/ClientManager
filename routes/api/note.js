@@ -10,11 +10,14 @@ router.route("/")
 router
   .route("/:id")
   .get(noteController.findById);
+
   
 
 
 router
   .route("/:id/notes")
+  .delete(noteController.remove)
+  .get(noteController.findByNoteById);
 
   
 

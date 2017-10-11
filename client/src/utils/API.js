@@ -22,5 +22,11 @@ export default {
   },
   findNotes: function(id){
     return axios.get("/api/note/" + id);
+  },
+  deleteNote: function(id) {
+    return axios.delete("/api/note/" + id + "/notes");
+  },
+  findNote: function(id) {
+    return axios.get("/api/note" + id + "/notes");
   }
 };

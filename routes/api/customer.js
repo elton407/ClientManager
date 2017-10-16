@@ -1,9 +1,19 @@
+module.exports = function (passport) {
+
+  function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+      return next();
+
+    res.redirect('/');
+  }
+
 const router = require("express").Router();
 const customerController = require("../../controllers/customerController");
 
 // Matches with "/api/customer"
+//isLoggedIn need for authentication
 router.route("/")
-  .get(customerController.findAll)
+  .get( customerController.findAll)
   .post(customerController.create);
 
 // Matches with "/api/customer/:id"
@@ -19,5 +29,6 @@ router
   .post(customerController.createNotes);
   
 
+  return router;
 
-module.exports = router;
+}

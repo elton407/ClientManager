@@ -4,6 +4,7 @@ const relationship = require("mongoose-relationship");
 
 
 const customerSchema = new Schema({
+  userId: {type: String},
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   companyName: { type: String, required: true },

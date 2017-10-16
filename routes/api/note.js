@@ -1,4 +1,9 @@
+module.exports = function (passport) {
+
 const router = require("express").Router();
+
+
+
 const noteController = require("../../controllers/noteController");
 
 // Matches with "/api/note"
@@ -22,4 +27,6 @@ router
   
 
 
-module.exports = router;
+return router;
+
+}

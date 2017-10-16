@@ -1,11 +1,16 @@
+module.exports = function (passport) {
+
 const router = require("express").Router();
-const customerRoutes = require("./customer");
-const userRoutes = require("./user");
-const noteRoutes = require("./note");
+const customerRoutes = require("./customer")(passport);
+const userRoutes = require("./user")(passport);
+const noteRoutes = require("./note")(passport);
 
 // Book routes
 router.use("/customer", customerRoutes);
 router.use("/user", userRoutes);
 router.use("/note", noteRoutes);
 
-module.exports = router;
+return router;
+
+}
+

@@ -6,6 +6,10 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+import Nav from "../../components/Nav";
+import ClientList from "../../components/ClientList";
+
+
 
 class Customers extends Component {
   state = {
@@ -17,7 +21,8 @@ class Customers extends Component {
     companyAddress: "",
     companyBudget: "",
     companyNotes: "",
-    dateExpected: ""
+    dateExpected: "",
+    currentUser: ""
   };
 
 
@@ -29,11 +34,26 @@ class Customers extends Component {
 
   loadCustomers = () => {
     API.getCustomers()
-      .then(res =>
-        this.setState({ Customers: res.data, firstName: "", lastName: "", companyName: "", companyBudget: "", companyAddress: "", companyNotes: "", dateExpected: "" })
-      )
+      .then(res => {
+        if(res.data.statusCode == 401){
+          this.props.history.push("/login");
+        }
+        else {
+          console.log("user:", res.data.sess);
+          this.setState({ currentUser: res.data.sess.passport.user, Customers: res.data.results, firstName: "", lastName: "", companyName: "", companyBudget: "", companyAddress: "", companyNotes: "", dateExpected: "" })
+        }   
+      })
       .catch(err => console.log(err));
   };
+
+
+  //   loadCustomers = () => {
+  //   API.getCustomers()
+  //     .then(res =>
+  //       this.setState({ currentUser:res.data.sess.passport.user, Customers: res.data, firstName: "", lastName: "", companyName: "", companyBudget: "", companyAddress: "", companyNotes: "", dateExpected: "" })
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
   deleteCustomer = id => {
     API.deleteCustomer(id)
@@ -52,6 +72,7 @@ class Customers extends Component {
     event.preventDefault();
     if (this.state.firstName && this.state.lastName) {
       API.saveCustomer({
+        userId: this.state.currentUser,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         companyName: this.state.companyName,
@@ -67,6 +88,8 @@ class Customers extends Component {
 
   render() {
     return (
+    <div>
+     <Nav userInfo={this.state.currentUser } />
       <Container fluid>
         <Row>
           <Col size="md-6">
@@ -128,25 +151,11 @@ class Customers extends Component {
             <Jumbotron>
               <h1>Your Clients</h1>
             </Jumbotron>
-            {this.state.Customers.length ? (
-              <List>
-                {this.state.Customers.map(Customers => (
-                  <ListItem key={Customers._id}>
-                    <Link to={"/customer/" + Customers._id}>
-                      <strong>
-                        {Customers.firstName} {Customers.lastName}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteCustomer(Customers._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
+            <ClientList Customers={this.state.Customers} userInfo = {this.state.currentUser} handleDelete = {this.deleteCustomer} />
           </Col>
         </Row>
       </Container>
+    </div>
     );
   }
 }

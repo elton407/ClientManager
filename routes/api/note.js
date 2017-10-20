@@ -1,5 +1,3 @@
-module.exports = function (passport) {
-
 const router = require("express").Router();
 
 
@@ -27,6 +25,5 @@ router
   
 
 
-return router;
+  module.exports = router;
 
-}

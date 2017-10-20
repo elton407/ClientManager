@@ -28,5 +28,14 @@ export default {
   },
   findNote: function(id) {
     return axios.get("/api/note" + id + "/notes");
+  },
+  login: function(userData) {
+    return axios.post("/api/auth/login", userData);
+  },
+  logout: function() {
+    return axios.get("/api/auth/logout");
+  },
+  register: function(userData) {
+    return axios.post("/api/auth/register", userData);
   }
 };

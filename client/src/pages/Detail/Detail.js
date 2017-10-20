@@ -6,6 +6,7 @@ import API from "../../utils/API";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { List, ListItem } from "../../components/List";
 import DeleteBtn from "../../components/DeleteBtn";
+import Nav from "../../components/Nav";
 
 
 
@@ -16,7 +17,8 @@ class Detail extends Component {
     Notes: [],
 
     note: "",
-    customerId: ""
+    customerId: "",
+    currentUser: ""
   };
 
   
@@ -33,7 +35,15 @@ class Detail extends Component {
 
   loadCustomer = () => {
     API.getCustomer(this.props.match.params.id)
-        .then(res => this.setState({ Customer: res.data }))
+        .then(res => {
+          if (res.data.statusCode == 401) {
+          this.props.history.push("/login");
+        }
+        else {
+          console.log("user:", res.data.sess);
+          this.setState({ Customer: res.data.results, currentUser: res.data.sess.passport.user })
+        }
+      })
         .catch(err => console.log(err));
   };
 
@@ -70,6 +80,8 @@ class Detail extends Component {
 
   render() {
     return (
+      <div>
+      <Nav userInfo={this.state.currentUser } />
       <Container fluid>
         <Row>
           <Col size="md-12">
@@ -167,6 +179,7 @@ class Detail extends Component {
           </Col>
         </Row>
       </Container>
+      </div>
     );
   }
 }

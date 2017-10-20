@@ -5,12 +5,12 @@ const relationship = require("mongoose-relationship");
 
 const customerSchema = new Schema({
   userId: {type: String},
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  companyName: { type: String, required: true },
-  companyAddress: { type: String, required: true },
-  companyBudget: { type: String, required: true },
-  companyNotes: { type: String, required: true }, 
+  firstName: { type: String},
+  lastName: { type: String},
+  companyName: { type: String},
+  companyAddress: { type: String},
+  companyBudget: { type: String},
+  companyNotes: { type: String}, 
   dateExpected: { type: Date },
   date: { type: Date, default: Date.now },
   notes: [{ type: Schema.ObjectId, ref: "Note" }]

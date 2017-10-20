@@ -1,6 +1,3 @@
-module.exports = function (passport) {
-
-
 
 const router = require("express").Router();
 const userController = require("../../controllers/userController");
@@ -20,6 +17,5 @@ router
   .route("/username/:userName")
   .get(userController.findByUserName);
 
- return router;
+ module.exports =  router;
 
-}

@@ -11,6 +11,10 @@ import ClientList from "../../components/ClientList";
 
 
 
+
+
+
+
 class Customers extends Component {
   state = {
     Customers: [],
@@ -87,6 +91,18 @@ class Customers extends Component {
   };
 
   render() {
+
+  var well =  {
+  minHeight: "20px",
+  padding: "19px",
+  paddingBottom: "50px",
+  marginBottom: "30px",
+  backgroundColor: "#083e4b",
+  border: "1px solid transparent",
+  borderRadius: "4px",
+  webkitBoxShadow: "inset 0 1px 1px rgba(0, 0, 0, 0.05)",
+  boxShadow: "inset 0 1px 1px rgba(0, 0, 0, 0.05)"
+}
     return (
     <div>
      <Nav userInfo={this.state.currentUser } />
@@ -96,6 +112,8 @@ class Customers extends Component {
             <Jumbotron>
               <h1>Add Client</h1>
             </Jumbotron>
+          <div>
+          <div style = {well}>
             <form>
               <Input
                 value={this.state.firstName}
@@ -146,12 +164,16 @@ class Customers extends Component {
                 Submit Customer
               </FormBtn>
             </form>
+            </div>
+            </div>
           </Col>
           <Col size="md-6">
             <Jumbotron>
               <h1>Your Clients</h1>
             </Jumbotron>
+            <div style={well}>
             <ClientList Customers={this.state.Customers} userInfo = {this.state.currentUser} handleDelete = {this.deleteCustomer} />
+            </div>
           </Col>
         </Row>
       </Container>

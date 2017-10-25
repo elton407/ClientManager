@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
+import { Col, Row } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Input, TextArea, FormBtn } from "../../components/Form";
-import { List, ListItem } from "../../components/List";
+import { List, MemoListItem } from "../../components/List";
 import DeleteBtn from "../../components/DeleteBtn";
 import Nav from "../../components/Nav";
+import { Container, Divider, Dropdown, Header, Menu, Segment } from 'semantic-ui-react';
+
 
 
 
@@ -82,7 +84,7 @@ class Detail extends Component {
     return (
       <div>
       <Nav userInfo={this.state.currentUser } />
-      <Container fluid>
+      <Container text style={{ marginTop: '7em' }}>
         <Row>
           <Col size="md-12">
             <Jumbotron>
@@ -129,33 +131,19 @@ class Detail extends Component {
             {this.state.Notes[0] ? (
               <List>
                 {this.state.Notes.map(note => (
-                  <ListItem key={note._id}>
+                  <MemoListItem key={note._id}>
                     
                       <strong>
                         {note.note}
                       </strong>
                    
                     <DeleteBtn onClick={() => this.deleteNote(note._id)} />
-                  </ListItem>
+                  </MemoListItem>
                 ))}
               </List>
             ) : (
               <h3>No Memos to Display</h3>
             )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <form>
               <Input

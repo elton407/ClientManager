@@ -5,6 +5,10 @@ import { Input, FormBtn } from "../../components/Form";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import Nav from "../../components/Nav";
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+
+
+
 
 class Register extends Component {
   state = {
@@ -12,6 +16,7 @@ class Register extends Component {
     password: "",
     currentUser: ""
   };
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -40,42 +45,66 @@ class Register extends Component {
   };
 
   render() {
+
+    const containerSize = {
+      width:"200px"
+    }
+
+
     return (
-      <div>
-        <Nav userInfo={this.state.currentUser} />
-        <Container fluid>
-          <Row>
-            <Col size="md-12">
-              <Jumbotron>
-                <h1>
-                  Register
-                </h1>
-              </Jumbotron>
-            </Col>
-          </Row>
-          <Row>
-            <form>
-              <Input
+<div className='login-form'>
+    {/*
+      Heads up! The styles below are necessary for the correct render of this example.
+      You can do same with CSS, the main idea is that all the elements up to the `Grid`
+      below must have a height of 100%.
+    */}
+    <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+    <Grid
+      textAlign='center'
+      style={{ height: '100%' }}
+      verticalAlign='middle'
+    >
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as='h2' color='teal' textAlign='center'>
+          <Image src='/logo.png' />
+          {' '}Register For Account
+        </Header>
+        <Form size='large'>
+          <Segment stacked>
+            <Form.Input
+              fluid
+              icon='user'
+              iconPosition='left'
                 onChange={this.handleInputChange}
                 name="username"
                 placeholder="username (required)"
-              />
-              <Input
+            />
+            <Form.Input
+              fluid
+              icon='lock'
+              iconPosition='left'
                 onChange={this.handleInputChange}
                 name="password"
                 type="password"
                 placeholder="password (required)"
-              />
-              <FormBtn
-                disabled={!(this.state.username && this.state.password)}
-                onClick={this.handleFormSubmit}
-              >
-                Login
-              </FormBtn>
-            </form>
-          </Row>
-        </Container>
-      </div>
+            />
+
+            <Button color='teal' fluid size='large' disabled={!(this.state.username && this.state.password)}
+                onClick={this.handleFormSubmit}>Login</Button>
+          </Segment>
+                  <Message>
+          Already Have One? <a href='/Login'>Login</a>
+        </Message>
+        </Form>
+      </Grid.Column>
+    </Grid>
+  </div>
     );
   }
 }

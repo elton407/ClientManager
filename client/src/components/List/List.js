@@ -1,12 +1,14 @@
 import React from "react";
-import "./List.css";
+//import "./List.css";
+import { Item } from 'semantic-ui-react'
+
 
 export const List = ({ children }) => {
   return (
-    <div className="list-overflow-container">
-      <ul className="list-group">
-        {children}
-      </ul>
-    </div>
+  	<Item>
+  	<Item.Content verticalAlign='middle'>
+  		{children}
+  	</Item.Content>
+  	</Item>
   );
 };

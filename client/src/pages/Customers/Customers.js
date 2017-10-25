@@ -3,11 +3,14 @@ import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
+// import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import Nav from "../../components/Nav";
 import ClientList from "../../components/ClientList";
+import { Grid, Image } from 'semantic-ui-react'
+import { Container, Divider, Dropdown, Header, Menu, Segment } from 'semantic-ui-react'
+
 
 
 
@@ -103,15 +106,29 @@ class Customers extends Component {
   webkitBoxShadow: "inset 0 1px 1px rgba(0, 0, 0, 0.05)",
   boxShadow: "inset 0 1px 1px rgba(0, 0, 0, 0.05)"
 }
+
+const jumboPad = {
+  marginLeft:"20px"
+}
+
+
+
     return (
     <div>
      <Nav userInfo={this.state.currentUser } />
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>Add Client</h1>
-            </Jumbotron>
+    <div>
+    <Container text style={{ marginTop: '7em' }}>
+      <Grid>
+        <Grid.Row columns={2}>
+      <Grid.Column mobile={16} tablet={16} computer={16}>
+            <div style={well}>
+            <ClientList Customers={this.state.Customers} userInfo = {this.state.currentUser} handleDelete = {this.deleteCustomer} />
+            </div>  
+      </Grid.Column>
+    </Grid.Row>
+
+    <Grid.Row columns={2}>
+      <Grid.Column mobile={16} tablet={16} computer={16}>
           <div>
           <div style = {well}>
             <form>
@@ -166,17 +183,11 @@ class Customers extends Component {
             </form>
             </div>
             </div>
-          </Col>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>Your Clients</h1>
-            </Jumbotron>
-            <div style={well}>
-            <ClientList Customers={this.state.Customers} userInfo = {this.state.currentUser} handleDelete = {this.deleteCustomer} />
-            </div>
-          </Col>
-        </Row>
-      </Container>
+      </Grid.Column>
+    </Grid.Row>    
+   </Grid>
+   </Container>
+   </div>
     </div>
     );
   }

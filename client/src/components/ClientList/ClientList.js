@@ -5,12 +5,15 @@ import { Link } from "react-router-dom";
 import API from "../../utils/API";
 
 
- 
+ const pad = {
+  marginLeft:"10%"
+ }
 
 
 
 
 class ClientList extends React.Component {
+
 
 
   render(){
@@ -22,7 +25,7 @@ class ClientList extends React.Component {
                         {this.props.Customers.map(Customers => (
                           <ListItem key={Customers._id}>
                             <Link to={"/customer/" + Customers._id}>
-                              <strong>
+                              <strong style={pad}>
                                 {Customers.firstName} {Customers.lastName}
                               </strong>
                             </Link>

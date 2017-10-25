@@ -6,8 +6,10 @@ import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Register from "./pages/Register";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const App = () =>
+<MuiThemeProvider>
   <Router>
     <div>
       <Switch>
@@ -20,6 +22,8 @@ const App = () =>
         <Route component={NoMatch} />
       </Switch>
     </div>
-  </Router>;
+  </Router>
+</MuiThemeProvider>
+  ;
 
 export default App;
